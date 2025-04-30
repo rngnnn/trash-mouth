@@ -11,6 +11,8 @@ type Item = {
 const GameArea: React.FC = () => {
   const [positionX, setPositionX] = useState(300);
   const [items, setItems] = useState<Item[]>([]);
+  const [score, setScore] = useState(0);
+
 
   // Ağız kontrolü
   useEffect(() => {
@@ -40,6 +42,28 @@ const GameArea: React.FC = () => {
     }, 1000); // her saniyede bir item düşsün
     return () => clearInterval(interval);
   }, []);
+
+
+// Çarpışma kontrolü
+useEffect(() => {
+  const checkCollisions = () => {
+    items.forEach((item) => {
+      const isHit =
+        item.y + 30 >= 450 && // item yere yaklaşmış (ağız konumu)
+        item.x < positionX + 100 &&
+        item.x + 30 > positionX;
+
+      if (isHit) {
+        console.log('💥 Çarpışma! Item yakalandı:', item.id);
+        // Burada istersen puan artırabilir veya item'ı silebilirsin
+      }
+    });
+  };
+
+  const interval = setInterval(checkCollisions, 100);
+  return () => clearInterval(interval);
+}, [items, positionX]);
+
 
   // Mevcut nesneleri hareket ettirme
   useEffect(() => {
