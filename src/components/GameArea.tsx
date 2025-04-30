@@ -55,6 +55,9 @@ useEffect(() => {
 
       if (isHit) {
         console.log('💥 Çarpışma! Item yakalandı:', item.id);
+        setScore((prev) => prev + 1);
+        setItems((prevItems) => prevItems.filter((i) => i.id !== item.id));
+
         // Burada istersen puan artırabilir veya item'ı silebilirsin
       }
     });
