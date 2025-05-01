@@ -15,6 +15,7 @@ const Mouth: React.FC<MouthProps> = ({ positionX }) => {
         left: positionX,
         width: 100,
         height: 'auto',
+        // transform: 'translateX(-50%)',
       }}
     />
   );
