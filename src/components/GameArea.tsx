@@ -76,7 +76,7 @@ useEffect(() => {
           .map((item) => ({ ...item, y: item.y + 5 }))
           .filter((item) => item.y < 500) // alt sınırdan geçenleri temizle
       );
-    }, 50);
+    }, 50,50);
     return () => clearInterval(moveInterval);
   }, []);
 
