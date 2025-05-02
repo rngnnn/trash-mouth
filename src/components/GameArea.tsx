@@ -2,10 +2,29 @@ import React, { useEffect, useState } from 'react';
 import Mouth from './Mouth';
 import FallingItem from './FallingItem';
 
+
+type ItemType =
+  | 'apple' | 'kitty' | 'kitty2' | 'horse' | 'people' | 'chip'
+  | 'flower1' | 'flower2' | 'flower3' | 'controller1' | 'controller2'
+  | 'game' | 'camera' | 'photography'
+  | 'needle' | 'needle2' | 'ghost1' | 'ghost2' | 'forbidden1'
+  | 'forbidden2' | 'forbidden3' | 'robot' | 'robot2' | 'shark'
+  | 'stain' | 'moon' | 'ice' | 'brush1' | 'brush2' | 'brush3'
+  | 'key1' | 'key2' | 'minecraft' | 'block' | 'phone' | 'camera2';
+
+type Effect = {
+  score?: number;
+  life?: number;
+  slowDown?: boolean;
+};
+
+
 type Item = {
   id: number;
   x: number;
   y: number;
+  type: ItemType;
+  
 };
 
 const GameArea: React.FC = () => {
