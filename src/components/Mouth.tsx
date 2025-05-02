@@ -7,17 +7,17 @@ type MouthProps = {
 const Mouth: React.FC<MouthProps> = ({ positionX }) => {
   return (
     <img
-      src="/mouth.png"
-      alt="mouth"
-      style={{
-        position: 'absolute',
-        bottom: 20,
-        left: positionX,
-        width: 100,
-        height: 'auto',
-        // transform: 'translateX(-50%)',
-      }}
-    />
+    src="/images/mouth-art.png"
+    alt="mouth"
+    style={{
+      position: 'absolute',
+      bottom: 20,
+      left: positionX,
+      width: 220,
+      height: 'auto',
+    }}
+  />
+  
   );
 };
 
