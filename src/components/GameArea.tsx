@@ -63,6 +63,8 @@ const itemEffects: Record<ItemType, Effect> = {
   camera2: { score: 1 },
 };
 
+
+
 const GameArea: React.FC = () => {
   const [positionX, setPositionX] = useState(300);
   const [items, setItems] = useState<Item[]>([]);
