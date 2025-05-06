@@ -63,13 +63,12 @@ const itemEffects: Record<ItemType, Effect> = {
   camera2: { score: 1 },
 };
 
-
-
 const GameArea: React.FC = () => {
   const [positionX, setPositionX] = useState(300);
   const [items, setItems] = useState<Item[]>([]);
   const [score, setScore] = useState(0);
   const [life, setLife] = useState(3);
+  const [itemSpeed, setItemSpeed] = useState(5); // ← düşüş hızı
 
   const randomType = (): ItemType => {
     const types: ItemType[] = Object.keys(itemEffects) as ItemType[];
@@ -77,7 +76,7 @@ const GameArea: React.FC = () => {
     return types[index];
   };
 
-  // Ağız kontrolü
+  // Klavye ile ağız hareketi
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       setPositionX((prev) => {
@@ -91,7 +90,7 @@ const GameArea: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Yeni nesne ekleme
+  // Yeni item oluşturma
   useEffect(() => {
     const interval = setInterval(() => {
       setItems((prev) => [
@@ -107,7 +106,7 @@ const GameArea: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Çarpışma kontrolü
+  // Çarpışma kontrolü + efekt uygulama
   useEffect(() => {
     const checkCollisions = () => {
       items.forEach((item) => {
@@ -120,13 +119,19 @@ const GameArea: React.FC = () => {
           const effect = itemEffects[item.type];
 
           if (effect?.score) {
-            setScore((prev) => prev + effect.score!);
+            setScore((prev) => prev + effect.score);
           }
           if (effect?.life) {
-            setLife((prev) => Math.max(0, prev + effect.life!));
+            setLife((prev) => Math.max(0, prev + effect.life));
           }
           if (effect?.slowDown) {
-            console.log('🌀 Yavaşlatıcı etki uygulandı!');
+            console.log('🌀 Yavaşlatıcı etki aktif!');
+            setItemSpeed(2); // yavaşlat
+
+            setTimeout(() => {
+              setItemSpeed(5); // normale dön
+              console.log('⏩ Hız normale döndü');
+            }, 3000);
           }
 
           setItems((prevItems) => prevItems.filter((i) => i.id !== item.id));
@@ -138,17 +143,17 @@ const GameArea: React.FC = () => {
     return () => clearInterval(interval);
   }, [items, positionX]);
 
-  // Item düşürme
+  // Düşen item’ları hareket ettirme
   useEffect(() => {
     const moveInterval = setInterval(() => {
       setItems((prev) =>
         prev
-          .map((item) => ({ ...item, y: item.y + 5 }))
+          .map((item) => ({ ...item, y: item.y + itemSpeed }))
           .filter((item) => item.y < 500)
       );
     }, 50);
     return () => clearInterval(moveInterval);
-  }, []);
+  }, [itemSpeed]);
 
   return (
     <div
