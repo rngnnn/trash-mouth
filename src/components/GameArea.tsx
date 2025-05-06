@@ -120,12 +120,13 @@ const GameArea: React.FC = () => {
 
           if (effect?.score !== undefined) {
             // console.log('💰 Puan arttı!');
-            setScore((prev) => prev + effect.score);
+            setScore((prev) => prev + effect.score!);
           }
           if (effect?.life !== undefined) {
             // console.log('❤️ Can arttı!');
             setLife((prev) => Math.max(0, prev + effect.life));
           }
+
           if (effect?.slowDown) {
             console.log('🌀 Yavaşlatıcı etki aktif!');
             setItemSpeed(2); // yavaşlat
