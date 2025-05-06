@@ -124,7 +124,7 @@ const GameArea: React.FC = () => {
           }
           if (effect?.life !== undefined) {
             // console.log('❤️ Can arttı!');
-            setLife((prev) => Math.max(0, prev + effect.life));
+            setLife((prev) => Math.max(0, prev + effect.life!));
           }
 
           if (effect?.slowDown) {
