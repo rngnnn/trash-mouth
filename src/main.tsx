@@ -8,3 +8,6 @@ createRoot(document.getElementById('root')!).render(
     <App />
   </StrictMode>,
 )
+//   block: { score: -1 },
+//   phone: { score: -1 },
+//   camera2: { score: -1 },
